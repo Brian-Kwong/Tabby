@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "Scam Reco",
+  "description": "Gets the webspage informatoon anytime a person visits ...",
+  "version": "1.0",
+  "permissions": ["scripting"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  }
+}
