@@ -73,12 +73,77 @@ export const findCorrectTab = function findCorrectTabGroup(tab) {
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   chrome.storage.local.get(["enabled"], (enabled) => {
     if (enabled["enabled"] && changeInfo.status === "complete") {
-      var currTab = tab;
-      if (currTab["groupId"] === -1) {
-        makeNewTabGroup([currTab]);
-      } else {
-        findCorrectTab(currTab);
-      }
+      // var currTab = tab;
+      // if (currTab["groupId"] === -1) {
+      //   makeNewTabGroup([currTab]);
+      // } else {
+      //   findCorrectTab(currTab);
+      // }
+      // if the previous tabs have already computed vectors
+      const classifyNew = async (tabs, callback) => {
+        const url = "http://127.0.0.1:5000/";
+        fetch(url, {
+          method: "POST",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(tabs),
+        })
+          .then((response) => response.json())
+          .then((json) => {
+            callback(json);
+            return 0;
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+        return 1;
+      };
+      chrome.tabs.query({}, async (allTabs) => {
+        const rawTabs = allTabs;
+
+        let tabs = [];
+        for (let i = 0; i < allTabs.length; ++i) {
+          console.log(allTabs[i].title);
+          if (allTabs[i].title != "New Tab") {
+            tabs.push(allTabs[i]);
+          }
+        }
+
+        tabs = tabs.map(
+          (tab) =>
+            extractTitle(tab.url) +
+            " " +
+            extractTitle(tab.url) +
+            " " +
+            tab.title
+        ); // ?
+        tabs = tabs.map((tab) => tab.replaceAll(" ", "_"));
+        classifyNew(tabs, async (payload) => {
+          // TODO: have clusters be calculated in here
+          const groupings = payload.groupings;
+          let groupAmount = 1;
+          for (let i = 0; i < groupings.length; ++i) {
+            if (groupings[i] > groupAmount) {
+              groupAmount = groupings[i];
+            }
+          }
+          ++groupAmount;
+          let allTabGroups = [];
+          for (let i = 0; i < groupAmount; ++i) {
+            allTabGroups.push([]);
+          }
+          console.log(allTabGroups);
+          for (let i = 0; i < allTabs.length; ++i) {
+            console.log(groupings[i]);
+            allTabGroups[groupings[i]].push(rawTabs[i]);
+          }
+          for (let i = 0; i < groupAmount; ++i) {
+            makeNewTabGroup(allTabGroups[i]);
+          }
+        });
+      });
     }
   });
 });
