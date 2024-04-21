@@ -5,13 +5,11 @@ let state = false; // Initialize state variable
 
 onButton.addEventListener("change", function() {
     state = !state; // Toggle the state when the button is changed
-
     if (state === true) {
           let enabled = true;
           chrome.storage.local.set({ enabled: enabled }).then(() => {
           console.log("Value is set");
     });
-};
     } else {
       let enabled = false;
       chrome.storage.local.set({ enabled: enabled }).then(() => {
