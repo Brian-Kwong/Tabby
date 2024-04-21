@@ -1,11 +1,15 @@
 const onButton = document.getElementById("switch");
-
-let state = false; // Initialize state variable
 import { extractDomain, makeNewTabGroup } from "./background.js";
 
+var state;
+chrome.storage.local.get(["enabled"], (enabled) => {
+  state = enabled["enabled"];
+  onButton.checked = state;
+});
+
 onButton.addEventListener("change", function () {
-  state = !state; // Toggle the state when the button is changed
-  if (state === true) {
+  if (state === false) {
+    state = true;
     let enabled = true;
     chrome.storage.local.set({ enabled: enabled }).then(() => {
       var myTabs = [];
@@ -48,6 +52,7 @@ onButton.addEventListener("change", function () {
     });
   } else {
     let enabled = false;
+    state = false;
     chrome.storage.local.set({ enabled: enabled }).then(() => {
       chrome.tabGroups.query({}, (groups) => {
         if (groups.length === 0) return;
