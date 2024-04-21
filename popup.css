@@ -22,6 +22,7 @@ html {
   -webkit-tap-highlight-color: transparent;
 }
 
+
 .wrapper {
   height: 20rem;
   background: -o-linear-gradient(315deg, #dc991a, #f4daa7);
@@ -101,7 +102,7 @@ input[type="checkbox"]:checked {
 input[type="checkbox"]:checked:before {
   content: "ON";
   left: 4.1em;
-  color: #f4d aa7;
+  color: #f4daa7;
 }
 
 img {
