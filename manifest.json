@@ -6,5 +6,8 @@
   "permissions": ["tabs", "activeTab", "tabGroups"],
   "background": {
     "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
   }
 }
