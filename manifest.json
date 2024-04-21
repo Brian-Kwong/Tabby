@@ -9,5 +9,6 @@
   },
   "action": {
     "default_popup": "popup.html"
-  }
+  },
+  "icons": { "128": "img/circleCatIcon.png" }
 }
