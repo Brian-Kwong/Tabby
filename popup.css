@@ -7,7 +7,6 @@ header {
   border-radius: 5%;
 }
 
-
 html {
   width: 290px;
   height: 400px;
@@ -57,10 +56,10 @@ h2 {
   font-size: 20px;
   font-family: "Arts District", sans-serif;
   /* color: linear-gradient(135deg, #dc991a, #f4daa7); */
-  color: #f4daa7
+  color: #f4daa7;
 }
 
-input[type="checkbox"]{
+input[type="checkbox"] {
   width: -50%;
   heigth: -50%;
 }
@@ -133,4 +132,3 @@ img {
   margin-left: 2.5em;
   /* padding-left: 3em; */
 }
-
