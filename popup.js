@@ -1,6 +1,4 @@
 const onButton = document.getElementById("switch");
-
-let state = false; // Initialize state variable
 import { extractDomain, makeNewTabGroup } from "./background.js";
 onButton.addEventListener("change", function () {
   console.log("Button changed");
@@ -9,13 +7,20 @@ onButton.addEventListener("change", function () {
     chrome.storage.local.set({ enabled: enabled }).then(() => {
       var myTabs = [];
 
-      // const classifyNew = async (newTab) => {
-      //   const url = "http://127.0.0.1:5000/?query=" + newTab;
-      // };
-      // classifyNew("test");
+var state;
+chrome.storage.local.get(["enabled"], (enabled) => {
+  state = enabled["enabled"];
+  onButton.checked = state;
+});
+
+onButton.addEventListener("change", function () {
+  if (state === false) {
+    state = true;
+    let enabled = true;
+    chrome.storage.local.set({ enabled: enabled }).then(() => {
+      var myTabs = [];
       chrome.storage.local.get(["enabled"], (enabled) => {
         var enabled = enabled["enabled"];
-
         function filterGroups(listOfTitle) {
           var myGroups = [];
           while (listOfTitle.length > 0) {
@@ -52,6 +57,7 @@ onButton.addEventListener("change", function () {
     });
   } else {
     let enabled = false;
+    state = false;
     chrome.storage.local.set({ enabled: enabled }).then(() => {
       chrome.tabGroups.query({}, (groups) => {
         if (groups.length === 0) return;
