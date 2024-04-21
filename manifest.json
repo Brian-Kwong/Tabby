@@ -3,14 +3,16 @@
   "name": "Tabby",
   "description": "Gets the webspage informatoon anytime a person visits ...",
   "version": "1.0",
-  "permissions": ["tabs", "activeTab", "tabGroups"],
+  "permissions": ["tabs", "activeTab", "tabGroups", "storage"],
   "background": {
     "service_worker": "background.js"
   },
   "action": {
+
     "default_popup": "popup.html"
   },
   "icons": { 
     "128": "images/circleCatIcon.png",
     "48": "images/48BitTabbyIcon.png" }
+
 }
