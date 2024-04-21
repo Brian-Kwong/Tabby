@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Scam Reco",
+  "name": "Tabby",
   "description": "Gets the webspage informatoon anytime a person visits ...",
   "version": "1.0",
   "permissions": ["tabs", "activeTab", "tabGroups", "storage"],
@@ -9,6 +9,10 @@
     "type": "module"
   },
   "action": {
-    "default_popup": "./popup.html"
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "128": "images/circleCatIcon.png",
+    "48": "images/48BitTabbyIcon.png"
   }
 }
