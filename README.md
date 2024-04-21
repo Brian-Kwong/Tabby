@@ -42,7 +42,7 @@ pip install flask-cors
 
 Then to start the AI
 ```
-./backend/api.py
+python3 ./backend/api.py
 ```
 
 
