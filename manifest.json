@@ -3,11 +3,11 @@
   "name": "Scam Reco",
   "description": "Gets the webspage informatoon anytime a person visits ...",
   "version": "1.0",
-  "permissions": ["tabs", "activeTab", "tabGroups"],
+  "permissions": ["tabs", "activeTab", "tabGroups", "storage"],
   "background": {
     "service_worker": "background.js"
   },
   "action": {
-    "default_popup": "popup.html"
+    "default_popup": "./popup.html"
   }
 }
