@@ -1,4 +1,3 @@
-
 const onButton = document.getElementById("switch");
 
 let state = false; // Initialize state variable
