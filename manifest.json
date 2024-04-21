@@ -9,11 +9,10 @@
     "type": "module"
   },
   "action": {
-
     "default_popup": "popup.html"
   },
-  "icons": { 
+  "icons": {
     "128": "images/circleCatIcon.png",
-    "48": "images/48BitTabbyIcon.png" }
-
+    "48": "images/48BitTabbyIcon.png"
+  }
 }

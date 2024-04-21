@@ -3,6 +3,7 @@ const onButton = document.getElementById("switch");
 let state = false; // Initialize state variable
 import { extractDomain, makeNewTabGroup } from "./background.js";
 onButton.addEventListener("change", function () {
+  console.log("Button changed");
   state = !state; // Toggle the state when the button is changed
   if (state === true) {
     chrome.storage.local.set({ enabled: enabled }).then(() => {
@@ -65,3 +66,4 @@ onButton.addEventListener("change", function () {
       });
     });
   }
+});
