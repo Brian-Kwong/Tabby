@@ -1,4 +1,4 @@
-const onButton = document.getElementById("switch");
+const onButton = document.getElementById("switch1");
 import { extractDomain, makeNewTabGroup } from "./background.js";
 
 var state;
@@ -68,3 +68,4 @@ onButton.addEventListener("change", function () {
     });
   }
 });
+
