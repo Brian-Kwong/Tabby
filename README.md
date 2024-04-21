@@ -1,4 +1,6 @@
-# HackTech-24
+# Tabby : Chrome Extension for organizing tabs
+
+---
 
 ## Inspiration
   
