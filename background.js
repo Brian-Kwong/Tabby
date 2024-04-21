@@ -1,4 +1,14 @@
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  //   const classifyNew = async (newTab) => {
+  //     const url = 'http://127.0.0.1:5000/?query=' + newTab;
+  //     fetch(url)
+  //         .then((response) => response.json())
+  //         .then((json) => {
+  //             console.log(json);
+  //         });
+  // }
+  // classifyNew('test');
+
   chrome.storage.local.get(["enabled"], (value) => {
     let enabled = value["enabled"];
     var myTabs = [];
