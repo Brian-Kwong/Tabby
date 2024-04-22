@@ -87,7 +87,8 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
         } else {
           // if the previous tabs have already computed vectors
           const classifyNew = async (tabs, callback) => {
-            const url = "http://127.0.0.1:5000/";
+            const url =
+              "https://g77hjvunpbv4wiix3ypmpiqi4u0qriiz.lambda-url.us-west-1.on.aws/";
             fetch(url, {
               method: "POST",
               mode: "cors",
@@ -108,7 +109,6 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 
             let tabs = [];
             for (let i = 0; i < allTabs.length; ++i) {
-              console.log(allTabs[i].title);
               if (allTabs[i].title != "New Tab") {
                 tabs.push(allTabs[i]);
               }
@@ -130,7 +130,6 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
               // TODO: have clusters be calculated in here
               const groupings = payload.groupings;
               let groupAmount = 0;
-              console.log(groupings);
               for (let i = 0; i < groupings.length; ++i) {
                 if (groupings[i] > groupAmount) {
                   groupAmount = groupings[i];
@@ -141,9 +140,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
               for (let i = 0; i < groupAmount; ++i) {
                 allTabGroups.push([]);
               }
-              console.log(allTabGroups);
               for (let i = 0; i < tabs.length; ++i) {
-                console.log(groupings[i]);
                 allTabGroups[groupings[i]].push(rawTabs[i]);
               }
               for (let i = 0; i < groupAmount; ++i) {
