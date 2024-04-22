@@ -1,18 +1,19 @@
 from flask import Flask, jsonify, request, after_this_request
 from flask_restful import reqparse
-from flask_cors import CORS
+from flask_cors import *
 from organizer import receive_groupings, receive_embeddings
 import numpy as np
 import re
 
 app = Flask(__name__)
-CORS(app, origins=['*']) # fill in right extension
+CORS(app) # fill in right extension
 
 parser = reqparse.RequestParser()
 parser.add_argument('list', type=list)
 
 
 @app.route('/', methods=['POST', 'GET'])
+@cross_origin()
 def clu():
     data = request.json
 
