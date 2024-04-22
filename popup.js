@@ -67,7 +67,8 @@ onButton.addEventListener("change", function () {
           } else {
             // if the previous tabs have already computed vectors
             const classifyNew = async (tabs, callback) => {
-              const url = "http://127.0.0.1:5000/";
+              const url =
+                "https://g77hjvunpbv4wiix3ypmpiqi4u0qriiz.lambda-url.us-west-1.on.aws/";
               fetch(url, {
                 method: "POST",
                 mode: "cors",
