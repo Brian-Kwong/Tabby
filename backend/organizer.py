@@ -22,7 +22,6 @@ def receive_embeddings(newtab):
     return ans
 
 def receive_groupings(embeddings, vagueness=1.40):
-    print(embeddings)
     if(len(embeddings) == 1):
         return np.array([0])
     clustering_model = AgglomerativeClustering(n_clusters=None, distance_threshold=vagueness)

@@ -1,3 +1,5 @@
+export const server_url =
+  "https://qq6y4ifaqhc24xjs3wau45iuqq0ewjcm.lambda-url.us-west-1.on.aws/";
 export const extractDomain = function extractDomain(url) {
   // Remove protocol
   var domain = url.replace(/(^\w+:|^)\/\//, "");
@@ -87,9 +89,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
         } else {
           // if the previous tabs have already computed vectors
           const classifyNew = async (tabs, callback) => {
-            const url =
-              "https://g77hjvunpbv4wiix3ypmpiqi4u0qriiz.lambda-url.us-west-1.on.aws/";
-            fetch(url, {
+            fetch(server_url, {
               method: "POST",
               mode: "cors",
               headers: {
