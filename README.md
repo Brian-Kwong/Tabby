@@ -1,56 +1,131 @@
-# Tabby : Chrome Extension for organizing tabs
+<!--
+title: 'Serverless Framework Python Flask API on AWS'
+description: 'This template demonstrates how to develop and deploy a simple Python Flask API running on AWS Lambda using the traditional Serverless Framework.'
+layout: Doc
+framework: v3
+platform: AWS
+language: Python
+priority: 2
+authorLink: 'https://github.com/serverless'
+authorName: 'Serverless, inc.'
+authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4'
+-->
 
----
+# Serverless Framework Python Flask API on AWS
 
-## Inspiration
-  
-  - Our team believes that effective organization leads to an improvement in education, workforce, and in public health.  We developed our project to help others stay   organized. 
-
-  - Being disorganized may cause stress and discomfort that may lead to a reduction in our productivity and motivation. Our program does the dirty work so you can worry about the important things. 
-
-## What it does
-   - Whether it's working on homework or hacking our next hackathon, the swamp of tabs causes too much clutter and confusion. In all the messiness, why bother sorting your tabs when Tabby can do it for you? Our cute Tabby cat serves as your personal assistant to group all of your tabs automatically. Tabby can group your tabs either by domain name or by categories through AI-based clustering algorithms. 
-
-## How we built it
-  - We evenly divided ourselves to work on the website and the AI model simultaneously. We created a Google Chrome extension integrated with an AI model to recognize key terms and group tabs accordingly. 
-
-## Challenges we ran into
-- Creating artwork, design. and UI.
-- Working with Google and AI APIs.
-- Develop vectors for K-means clustering.
-- No food :c (no money, no housing, no break)
+This template demonstrates how to develop and deploy a simple Python Flask API service running on AWS Lambda using the traditional Serverless Framework.
 
 
-## Accomplishments that we're proud of
-- Cute artwork.
-- Practical to use in everyday tasks.
-- Consistently functional and reliable.
-- We finished! :P
+## Anatomy of the template
 
-## What we learned
-- How to create Google Chrome extensions.
-- Utilizing AI APIs to create K-means clustering.
-- Working as a team! :D
+This template configures a single function, `api`, which is responsible for handling all incoming requests thanks to configured `httpApi` events. To learn more about `httpApi` event configuration options, please refer to [httpApi event docs](https://www.serverless.com/framework/docs/providers/aws/events/http-api/). As the events are configured in a way to accept all incoming requests, `Flask` framework is responsible for routing and handling requests internally. The implementation takes advantage of `serverless-wsgi`, which allows you to wrap WSGI applications such as Flask apps. To learn more about `serverless-wsgi`, please refer to corresponding [GitHub repository](https://github.com/logandk/serverless-wsgi). Additionally, the template relies on `serverless-python-requirements` plugin for packaging dependencies from `requirements.txt` file. For more details about `serverless-python-requirements` configuration, please refer to corresponding [GitHub repository](https://github.com/UnitedIncome/serverless-python-requirements).
 
-## Running the AI Model
+## Usage
 
-- You will need Python 3 installed on your computer along with the following pip modules
-```
-pip install sentence-transformers
-pip install flask
-pip install flask-restful
-pip install flask-cors
+### Prerequisites
+
+In order to package your dependencies locally with `serverless-python-requirements`, you need to have `Python3.9` installed locally. You can create and activate a dedicated virtual environment with the following command:
+
+```bash
+python3.9 -m venv ./venv
+source ./venv/bin/activate
 ```
 
-Then to start the AI
+Alternatively, you can also use `dockerizePip` configuration from `serverless-python-requirements`. For details on that, please refer to corresponding [GitHub repository](https://github.com/UnitedIncome/serverless-python-requirements).
+
+### Deployment
+
+This example is made to work with the Serverless Framework dashboard, which includes advanced features such as CI/CD, monitoring, metrics, etc.
+
+In order to deploy with dashboard, you need to first login with:
+
 ```
-python3 ./backend/api.py
+serverless login
 ```
 
+install dependencies with:
 
+```
+npm install
+```
 
+and
 
-What's next for Tabby
-Improve on AI model for better consistency
-Customization colors for group tabs.
-More efficient and optimal AI models.
+```
+pip install -r requirements.txt
+```
+
+and then perform deployment with:
+
+```
+serverless deploy
+```
+
+After running deploy, you should see output similar to:
+
+```bash
+Deploying aws-python-flask-api-project to stage dev (us-east-1)
+
+✔ Service deployed to stack aws-python-flask-api-project-dev (182s)
+
+endpoint: ANY - https://xxxxxxxx.execute-api.us-east-1.amazonaws.com
+functions:
+  api: aws-python-flask-api-project-dev-api (1.5 MB)
+```
+
+_Note_: In current form, after deployment, your API is public and can be invoked by anyone. For production deployments, you might want to configure an authorizer. For details on how to do that, refer to [httpApi event docs](https://www.serverless.com/framework/docs/providers/aws/events/http-api/).
+
+### Invocation
+
+After successful deployment, you can call the created application via HTTP:
+
+```bash
+curl https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/
+```
+
+Which should result in the following response:
+
+```
+{"message":"Hello from root!"}
+```
+
+Calling the `/hello` path with:
+
+```bash
+curl https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/hello
+```
+
+Should result in the following response:
+
+```bash
+{"message":"Hello from path!"}
+```
+
+If you try to invoke a path or method that does not have a configured handler, e.g. with:
+
+```bash
+curl https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/nonexistent
+```
+
+You should receive the following response:
+
+```bash
+{"error":"Not Found!"}
+```
+
+### Local development
+
+Thanks to capabilities of `serverless-wsgi`, it is also possible to run your application locally, however, in order to do that, you will need to first install `werkzeug` dependency, as well as all other dependencies listed in `requirements.txt`. It is recommended to use a dedicated virtual environment for that purpose. You can install all needed dependencies with the following commands:
+
+```bash
+pip install werkzeug
+pip install -r requirements.txt
+```
+
+At this point, you can run your application locally with the following command:
+
+```bash
+serverless wsgi serve
+```
+
+For additional local development capabilities of `serverless-wsgi` plugin, please refer to corresponding [GitHub repository](https://github.com/logandk/serverless-wsgi).

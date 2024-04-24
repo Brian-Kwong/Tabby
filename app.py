@@ -28,13 +28,9 @@ def clu():
     })
     return result
 
-# AWS Lambda handler
+
 def lambda_handler(event, context):
     event['httpMethod'] = event['requestContext']['http']['method']
     event['path'] = event['requestContext']['http']['path']
     event['queryStringParameters'] = event.get('queryStringParameters', {})
     return awsgi.response(app,event,context)
-
-# Used to start if running locally
-if __name__ == '__main__':
-    app.run(debug=True)
