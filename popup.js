@@ -59,7 +59,6 @@ onButton.addEventListener("change", function () {
               tabs.forEach((tab) => {
                 myTabs.push(tab);
               });
-              console.log(myTabs);
               var groupsTabs = filterGroups(myTabs.map((tab) => tab));
               groupsTabs.forEach((group) => {
                 makeNewTabGroup(group);
@@ -68,8 +67,7 @@ onButton.addEventListener("change", function () {
           } else {
             // if the previous tabs have already computed vectors
             const classifyNew = async (tabs, callback) => {
-              const url = "http://127.0.0.1:5000/";
-              fetch(url, {
+              fetch(server_url, {
                 method: "POST",
                 mode: "cors",
                 headers: {
@@ -89,7 +87,6 @@ onButton.addEventListener("change", function () {
 
               let tabs = [];
               for (let i = 0; i < allTabs.length; ++i) {
-                console.log(allTabs[i].title);
                 if (allTabs[i].title != "New Tab") {
                   tabs.push(allTabs[i]);
                 }
@@ -111,7 +108,6 @@ onButton.addEventListener("change", function () {
                 // TODO: have clusters be calculated in here
                 const groupings = payload.groupings;
                 let groupAmount = 0;
-                console.log(groupings);
                 for (let i = 0; i < groupings.length; ++i) {
                   if (groupings[i] > groupAmount) {
                     groupAmount = groupings[i];
@@ -122,9 +118,7 @@ onButton.addEventListener("change", function () {
                 for (let i = 0; i < groupAmount; ++i) {
                   allTabGroups.push([]);
                 }
-                console.log(allTabGroups);
                 for (let i = 0; i < tabs.length; ++i) {
-                  console.log(groupings[i]);
                   allTabGroups[groupings[i]].push(rawTabs[i]);
                 }
                 for (let i = 0; i < groupAmount; ++i) {

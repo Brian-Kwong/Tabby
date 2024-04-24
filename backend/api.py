@@ -1,18 +1,19 @@
-from flask import Flask, jsonify, request, after_this_request
+from flask import Flask, jsonify, request, after_this_request, Response
 from flask_restful import reqparse
-from flask_cors import CORS
+from flask_cors import *
 from organizer import receive_groupings, receive_embeddings
 import numpy as np
 import re
+import aws_lambda_wsgi as awsgi                                       
+
 
 app = Flask(__name__)
-CORS(app, origins=['*']) # fill in right extension
 
 parser = reqparse.RequestParser()
 parser.add_argument('list', type=list)
 
 
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/',methods=['GET', 'POST'])
 def clu():
     data = request.json
 
@@ -25,8 +26,15 @@ def clu():
         'groupings' : result,
         'summary' : None
     })
-    result.headers.add("Access-Control-Allow-Origin", "*")
     return result
 
+# AWS Lambda handler
+def lambda_handler(event, context):
+    event['httpMethod'] = event['requestContext']['http']['method']
+    event['path'] = event['requestContext']['http']['path']
+    event['queryStringParameters'] = event.get('queryStringParameters', {})
+    return awsgi.response(app,event,context)
+
+# Used to start if running locally
 if __name__ == '__main__':
     app.run(debug=True)
