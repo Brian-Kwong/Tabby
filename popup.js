@@ -3,12 +3,12 @@ const aiButton = document.getElementById("switch2");
 
 import { extractDomain, makeNewTabGroup, extractTitle } from "./background.js";
 
-var state;
+
 chrome.storage.local.get(["enabled"], (enabled) => {
   if (enabled["enabled"] === undefined) {
-    state = false;
+    onButton.checked = False
   } else {
-    state = enabled["enabled"];
+    onButton.checked = enabled["enabled"]
   }
   onButton.checked = state;
   chrome.storage.local.get(["ai_mode"], (ai) => {
