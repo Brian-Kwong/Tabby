@@ -79,6 +79,13 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   chrome.storage.local.get(["enabled"], (enabled) => {
     if (enabled["enabled"] && changeInfo.status == "complete") {
       chrome.storage.local.get(["ai_mode"], (ai) => {
+        console.log(
+          "Enabled? : " +
+            enabled["enabled"] +
+            " AI Mode? : " +
+            ai["ai_mode"] +
+            "\n"
+        );
         if (!ai["ai_mode"]) {
           var currTab = tab;
           if (currTab["groupId"] === -1) {
