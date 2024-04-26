@@ -61,7 +61,7 @@ export const findCorrectTab = function findCorrectTabGroup(tab) {
     chrome.tabGroups.query({}, (groups) => {
       groups.forEach((group) => {
         if (group["title"] === title) {
-          chrome.tab.group({
+          chrome.tabs.group({
             groupId: group["id"],
             tabIds: tab["id"],
           });

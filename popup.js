@@ -12,7 +12,7 @@ function getButtonState() {
     }
     chrome.storage.local.get(["ai_mode"], (ai) => {
       if (ai["ai_mode"] === undefined) {
-        aiButton.checked = true;
+        aiButton.checked = true && onButton.checked;
       } else {
         aiButton.checked = ai["ai_mode"];
       }
