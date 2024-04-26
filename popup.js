@@ -6,7 +6,7 @@ import { extractDomain, makeNewTabGroup, extractTitle } from "./background.js";
 function getButtonState() {
   chrome.storage.local.get(["enabled"], (enabled) => {
     if (enabled["enabled"] === undefined) {
-      onButton.checked = False;
+      onButton.checked = false;
     } else {
       onButton.checked = enabled["enabled"];
     }
