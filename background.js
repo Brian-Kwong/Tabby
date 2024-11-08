@@ -1,5 +1,5 @@
 export const server_url =
-  "https://qq6y4ifaqhc24xjs3wau45iuqq0ewjcm.lambda-url.us-west-1.on.aws/";
+  "https://c6hwhnx6ze44anso2pv2jtyb640zihln.lambda-url.us-west-1.on.aws/";
 export const extractDomain = function extractDomain(url) {
   // Remove protocol
   var domain = url.replace(/(^\w+:|^)\/\//, "");
